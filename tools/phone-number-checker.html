@@ -1,0 +1,57 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Telephone checker</title>
+  <script>
+  function validate(phoneNumber){
+    //проверяем введенный номер телефона, если была нажата кнопка Отмены, то получаем null;
+    //если телефон не пуст и не была нажата кнопка
+    if(phoneNumber == null || phoneNumber.length > 8 || phoneNumber.length < 7){
+      return false;
+    }
+
+    if(phoneNumber.length === 8 && phoneNumber.charAt(3) === "-"){
+      var splitPhoneNumber = phoneNumber.split("-");
+      var first = splitPhoneNumber[0];
+      var second = splitPhoneNumber[1];
+      if(isNotNumeric(first) || isNotNumeric(second)){
+        return false;
+      }
+    } else if(phoneNumber.length === 7){
+      //return (!isNaN(phoneNumber));
+      if(isNotNumeric(phoneNumber)){
+        return false;
+      }
+    } else {
+      return false;
+    }
+
+    return true;
+  }
+
+  function isNotNumeric(n){
+    for (var i = 0; i < n.length; i++){
+        if((n.charAt(i) === " ") || (n.charAt(i) === ".") || isNaN(n)){
+          return true;
+        }
+    }
+    return false;
+  }
+
+  var telephoneNumber = prompt("Введите номер телефона из 7 или 8 цифр (пример: 123-4567 или 1234567)", "");
+  //вызываем консоль и просим ввести номер телефона из 7 цифр или 8 цифр (с дефисом)
+  //var telephoneNumber = ("1235678");
+  var validTelephoneNumber = validate(telephoneNumber);
+
+  if(validTelephoneNumber){
+    document.write("<div style=\"background:green; color:white\"> Номер " + telephoneNumber + " введен правильно</div>");
+  }
+  else {
+    document.write("<div style=\"background:red; color:white\">Номер " + telephoneNumber + " введен неправильно</div>");
+  }
+
+  </script>
+</head>
+  <body>
+  </body>
+</html>
