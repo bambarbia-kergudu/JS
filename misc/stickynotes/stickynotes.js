@@ -3,8 +3,8 @@ window.onload = init; // дожидаемся полной загрузки ст
 
 function init(){
 
-localStorage.setItem("sticky_0", "Первая заметка");
-localStorage.setItem("sticky_1", "Вторая заметка");
+	var button = document.getElementById("add_button"); // извлекаем объект кнопки с id = add_button
+	button.onclick = createSticky; // задаем обработчик события и ждем нажатия кнопки
 
 	for (var i = 0; i < localStorage.length; i++){ // подсчитываем кол-во элементов в локальном хранилище
 		var key = localStorage.key(i); // получаем ключ каждого элемента
@@ -24,4 +24,11 @@ function addStickyToDom(value){
 	span.innerHTML = value; // добавляем в span текст заметки
 	sticky.appendChild(span); // вкладываем элемент span в li
 	stickies.appendChild(sticky); // вкладываем li в элемент с id stickies
+}
+
+function createSticky(){
+	var value = document.getElementById("note_text").value; // извлекаем текст из текстового поля
+	var key = "sticky_" + localStorage.length; // создаем уникальный ключ для заметки
+	localStorage.setItem(key, value); // добавляем новую заметку в локальное хранилище
+	addStickyToDom(value); // выводим новую заметку на странице
 }
